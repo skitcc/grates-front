@@ -24,19 +24,28 @@ const Login = () => {
             method:"POST",
             body: JSON.stringify({email:email, password: password}),
             headers: {
-                "Accept":"application/json",
+
                 "Content-Type": "application/json"
             }
         })
         .then(res => {
-            if (res.status === 200){
-                const tokenData = res.json()
-                console.log(JSON.stringify(tokenData));
-                saveToken(JSON.stringify(tokenData))
-                return Promise.resolve()
-            }
-            return Promise.reject()
+          if (res.status === 200){
+            return res.json()
+          } else{
+            throw new Error()
+          }
+        }
+          
+          )
+        .then(data => {
+            console.log(data);
+              
+            const tokenData = data
+            console.log(tokenData);
+            console.log(JSON.stringify(tokenData));
+            saveToken(JSON.stringify(tokenData))
         })
+        .catch(err => alert(err))
     }
     return (
         <div style={{background: "linear-gradient(315deg, rgba(2,0,36,1) 0%, rgba(161,34,180,1) 35%, rgba(0,212,255,1) 100%)",height:"100vh", width:"250vh"}}>

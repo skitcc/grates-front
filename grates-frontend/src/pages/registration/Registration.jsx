@@ -26,7 +26,6 @@ const Registration = () => {
       e.preventDefault()
       try{
       await fetch("http://mgtu.tech/auth/sign-up", {
-        mode: 'no-cors',
         method:"POST",
         body:JSON.stringify({name:username, email:email, password:password}),
         headers: {
