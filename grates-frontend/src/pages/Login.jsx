@@ -36,7 +36,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     try {
       const { data: userData } = await login({ email, password });
   
@@ -49,9 +49,12 @@ const Login = () => {
       } else {
         // Handle the case where the mutation did not return valid data
         setErrMsg("Login Failed");
-        errRef.current.focus();
+        if (errRef.current) {
+          errRef.current.focus();
+        }
       }
     } catch (err) {
+      console.log(err);
       if (!err?.originalStatus) {
         setErrMsg("No Server Response");
       } else if (err.originalStatus === 400) {
@@ -61,7 +64,9 @@ const Login = () => {
       } else {
         setErrMsg("Login Failed");
       }
-      errRef.current.focus();
+      if (errRef.current) {
+        errRef.current.focus();
+      }
     }
   };
 
@@ -83,7 +88,7 @@ const Login = () => {
           zIndex: 1,
         }}
       >
-        <p
+        <p style={{marginTop: "50px", fontSize: "30px", color: "white"}}
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
           aria-live="assertive"
