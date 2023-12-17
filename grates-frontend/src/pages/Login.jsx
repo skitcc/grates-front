@@ -36,16 +36,23 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const userData = await login({ email, password })
-      dispatch(setCredentials({ ...userData, email }));
-      setEmail("");
-      setPassword("");
-      navigate("/main");
+      const { data: userData } = await login({ email, password });
+  
+      // Check if the mutation was successful
+      if (userData) {
+        dispatch(setCredentials({ ...userData, email }));
+        setEmail("");
+        setPassword("");
+        navigate("/main");
+      } else {
+        // Handle the case where the mutation did not return valid data
+        setErrMsg("Login Failed");
+        errRef.current.focus();
+      }
     } catch (err) {
       if (!err?.originalStatus) {
-        // isLoading: true until timeout occurs
         setErrMsg("No Server Response");
       } else if (err.originalStatus === 400) {
         setErrMsg("Missing Username or Password");
