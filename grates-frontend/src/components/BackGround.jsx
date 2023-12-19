@@ -1,32 +1,37 @@
-import React from "react";
-import { useSpring, animated } from "react-spring";
+
+import React, { useEffect } from 'react';
+import './BackgroundAnimation.css';
 
 const BackgroundAnimation = () => {
-  const backgroundProps = useSpring({
-    from: { opacity: 0, transform: "scale(1.1)" },
-    to: { opacity: 1, transform: "scale(1)" },
-    config: { duration: 1000 },
-  });
+  useEffect(() => {
+    const fallingElementsContainer = document.getElementById('falling-elements-container');
+
+    const createFallingElement = () => {
+      const fallingElement = document.createElement('div');
+      fallingElement.className = 'falling-element';
+      fallingElement.style.left = `${Math.random() * 100}vw`;
+      fallingElement.style.animationDuration = `${Math.random() * 2 + 1}s`; // случайная длительность анимации
+      fallingElementsContainer.appendChild(fallingElement);
+    };
+
+    // создаем начальное количество падающих элементов
+    for (let i = 0; i < 10; i++) {
+      createFallingElement();
+    }
+
+    // добавляем событие для создания новых элементов каждую секунду
+    const intervalId = setInterval(() => {
+      createFallingElement();
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
-    <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-      <animated.div
-        style={{
-          ...backgroundProps,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: "linear-gradient(45deg, #3498db, #2ecc71)",
-        }}
-      />
-      <div className="rotating-objects">
-        <div className="object" />
-        <div className="object" />
-        <div className="object" />
-        {/* Добавьте столько объектов, сколько вам нужно */}
-      </div>
+    <div className="background-animation-container">
+      <div id="falling-elements-container" className="falling-elements-container"></div>
     </div>
   );
 };

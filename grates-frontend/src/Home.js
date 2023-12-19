@@ -1,7 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Registration from './pages/registration/Registration';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate()

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../features/auth/authSlice";
-import { useLoginMutation } from "../features/auth/authApiSlice";
-import BackgroundAnimation from "../components/BackGround";
+import { setCredentials } from "../../features/auth/authSlice";
+import { useLoginMutation } from "../../features/auth/authApiSlice";
+import BackgroundAnimation from "../../components/BackGround";
+import "./Login.css";
 
 const Login = () => {
   const emailRef = useRef();
@@ -36,7 +37,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     try {
       const { data: userData } = await login({ email, password });
   
@@ -49,12 +50,9 @@ const Login = () => {
       } else {
         // Handle the case where the mutation did not return valid data
         setErrMsg("Login Failed");
-        if (errRef.current) {
-          errRef.current.focus();
-        }
+        errRef.current.focus();
       }
     } catch (err) {
-      console.log(err);
       if (!err?.originalStatus) {
         setErrMsg("No Server Response");
       } else if (err.originalStatus === 400) {
@@ -64,31 +62,17 @@ const Login = () => {
       } else {
         setErrMsg("Login Failed");
       }
-      if (errRef.current) {
-        errRef.current.focus();
-      }
+      errRef.current.focus();
     }
   };
 
   const content = isLoading ? (
     <h1>Loading...</h1>
   ) : (
-    <div style={{ position: "relative", height: "100vh", width: "100%" }}>
+    <div className="background-container" style={{ position: "relative", height: "100vh", width: "100%" }}>
       <BackgroundAnimation />
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: 1,
-        }}
-      >
-        <p style={{marginTop: "50px", fontSize: "30px", color: "white"}}
+      <div className="form-container">
+        <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
           aria-live="assertive"
