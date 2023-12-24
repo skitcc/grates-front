@@ -1,34 +1,49 @@
 
-.background-animation-container {
+.background-container {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Помещаем за основной контент */
 }
 
-.falling-elements-container {
+.pentagon {
+  position: relative;
+  width: 54px;
+  box-sizing: content-box;
+  border-width: 50px 18px 0;
+  border-style: solid;
+  border-color: red transparent;
+}
+
+.pentagon:before {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  height: 0;
+  width: 0;
+  top: -85px;
+  left: -18px;
+  border-width: 0 45px 35px;
+  border-style: solid;
+  border-color: transparent transparent red;
 }
 
-.falling-element {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #3498db; /* Цвет фигуры */
-  border-radius: 50%;
-  transform-origin: center;
-  animation: fallingAnimation linear infinite;
+.pentagon1 {
+  top: 20%;
+  left: 10%;
+  border-bottom: 45px solid red;
 }
 
-@keyframes fallingAnimation {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-  }
+.pentagon2 {
+  top: 50%;
+  left: 70%;
+  border-bottom: 45px solid red;
 }
+
+.pentagon3 {
+  top: 70%;
+  left: 40%;
+  border-bottom: 45px solid red;
+}
+/* Добавьте другие пятиугольники и стили по необходимости */

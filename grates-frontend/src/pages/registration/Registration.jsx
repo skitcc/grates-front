@@ -25,7 +25,7 @@ const Registration = () => {
     console.log("wdwdw");
     e.preventDefault();
     try {
-      await fetch("http://mgtu.tech/auth/sign-up", {
+      await fetch("https://mgtu.tech/auth/sign-up", {
         method: "POST",
         body: JSON.stringify({
           name: username,

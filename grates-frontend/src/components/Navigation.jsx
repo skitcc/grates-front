@@ -5,7 +5,7 @@ import Registration from "../pages/registration/Registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { store } from "../app/store";
 import { Provider } from "react-redux";
-import MainPage from "../pages/MainPage";
+import MainPage from "../pages/newsFeed/MainPage";
 import RequireAuth from "../features/auth/RequireAuth";
 
 const Navigation = () => {
